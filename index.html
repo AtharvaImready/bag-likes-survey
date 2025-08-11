@@ -21,21 +21,20 @@
 <div id="bags"></div>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycby_pXWdkVA_5bgRSzT3Io8v6ylKmu9cziLfoUJ3juWMbF8CsyjPQJXcUD2R1lt3TTYDpg/exec"; // <-- Your Google Apps Script Web App URL
+const scriptURL = "https://script.google.com/macros/s/AKfycby_pXWdkVA_5bgRSzT3Io8v6ylKmu9cziLfoUJ3juWMbF8CsyjPQJXcUD2R1lt3TTYDpg/exec"; // <-- REPLACE
 
-// Example bagsData (Google Drive direct links)
+// Example bagsData. Replace with your 30 bags and their image links (Google Drive direct links)
 const bagsData = [
-  { id: "b00", images: ["images/b00.jpg"] },
-  { id: "b01", images: ["images/b01.jpg"] },
-  { id: "b02", images: ["images/b02.jpg"] },
-  { id: "b03", images: ["images/b03.jpg"] },
-  { id: "b04", images: ["images/b04.jpg"] }
+  { id: "b00", images: ["https://drive.google.com/uc?export=view&id=1kBPWdathwR7SaMiBPywgf6TY8nLWW2Qc", "https://drive.google.com/uc?export=view&id=1q8ql2dpsHQ4k7xskqPdnR-6jF1b5zNcR"] },
+  { id: "b01", images: ["https://drive.google.com/uc?export=view&id=1p5Gby_CG2gMprwiNItm26dKV8g0aBtjr"] }
+  // add more objects up to 30...
 ];
+
 async function fetchInitialLikes() {
   try {
-    const res = await fetch(scriptURL);
+    const res = await fetch(scriptURL); // doGet returns JSON map {b00: 3, b01: 0, ...}
     if (!res.ok) throw new Error('Failed to fetch likes');
-    return await res.json(); // Expected { b00: 3, b01: 0, ... }
+    return await res.json();
   } catch (err) {
     console.error('Error fetching likes:', err);
     return {};
@@ -61,19 +60,18 @@ function renderBags(likesMap) {
 
     const controls = document.createElement('div');
     controls.className = 'controls';
-
     const left = document.createElement('div');
     const btn = document.createElement('button');
     btn.className = 'like-btn' + (alreadyLiked ? ' liked' : '');
     btn.innerHTML = '❤️';
+    btn.onclick = () => likeBag(bag.id, btn, likesCountEl);
     const likesCountEl = document.createElement('span');
     likesCountEl.className = 'likes-count';
     likesCountEl.innerText = (likesMap[bag.id] || 0);
 
-    btn.onclick = () => likeBag(bag.id, btn, likesCountEl);
-
     left.appendChild(btn);
     left.appendChild(likesCountEl);
+
     controls.appendChild(left);
 
     bagDiv.appendChild(carousel);
@@ -83,6 +81,7 @@ function renderBags(likesMap) {
 }
 
 async function likeBag(bagID, btnEl, likesEl) {
+  // prevent multiple likes on same device
   if (localStorage.getItem('liked_' + bagID)) {
     alert('You already liked this bag on this device.');
     return;
