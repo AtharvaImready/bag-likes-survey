@@ -25,22 +25,12 @@ const scriptURL = "https://script.google.com/macros/s/AKfycby_pXWdkVA_5bgRSzT3Io
 
 // Example bagsData (Google Drive direct links)
 const bagsData = [
-  {
-    id: "b00",
-    images: [
-      "https://drive.google.com/uc?export=view&id=1kBPWdathwR7SaMiBPywgf6TY8nLWW2Qc",
-      "https://drive.google.com/uc?export=view&id=1q8ql2dpsHQ4k7xskqPdnR-6jF1b5zNcR"
-    ]
-  },
-  {
-    id: "b01",
-    images: [
-      "https://drive.google.com/uc?export=view&id=1p5Gby_CG2gMprwiNItm26dKV8g0aBtjr"
-    ]
-  }
-  // Add up to 30...
+  { id: "b00", images: ["images/b00.jpg"] },
+  { id: "b01", images: ["images/b01.jpg"] },
+  { id: "b02", images: ["images/b02.jpg"] },
+  { id: "b03", images: ["images/b03.jpg"] },
+  { id: "b04", images: ["images/b04.jpg"] }
 ];
-
 async function fetchInitialLikes() {
   try {
     const res = await fetch(scriptURL);
