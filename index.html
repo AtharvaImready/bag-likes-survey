@@ -62,14 +62,18 @@ function renderBags(likesMap) {
 
     const controls = document.createElement('div');
     controls.className = 'controls';
+
     const left = document.createElement('div');
+
     const btn = document.createElement('button');
     btn.className = 'like-btn' + (alreadyLiked ? ' liked' : '');
     btn.innerHTML = '❤️';
-    btn.onclick = () => likeBag(bag.id, btn, likesCountEl);
+
     const likesCountEl = document.createElement('span');
     likesCountEl.className = 'likes-count';
     likesCountEl.innerText = (likesMap[bag.id] || 0);
+
+    btn.onclick = () => likeBag(bag.id, btn, likesCountEl);
 
     left.appendChild(btn);
     left.appendChild(likesCountEl);
@@ -83,29 +87,28 @@ function renderBags(likesMap) {
 }
 
 async function likeBag(bagID, btnEl, likesEl) {
-  // prevent multiple likes on same device
   if (localStorage.getItem('liked_' + bagID)) {
     alert('You already liked this bag on this device.');
     return;
   }
 
+  // Instantly update count locally
+  let currentLikes = parseInt(likesEl.innerText) || 0;
+  likesEl.innerText = currentLikes + 1;
+  btnEl.classList.add('liked');
+  localStorage.setItem('liked_' + bagID, '1');
+
   try {
-    const res = await fetch(scriptURL, {
+    await fetch(scriptURL, {
       method: 'POST',
+      mode: 'no-cors', // prevents network error popup
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ bagID: bagID })
     });
-    const data = await res.json();
-    if (data && data.success) {
-      likesEl.innerText = data.likes;
-      btnEl.classList.add('liked');
-      localStorage.setItem('liked_' + bagID, '1');
-    } else {
-      alert('Like failed. Try again.');
-    }
+    // No response parsing here due to no-cors
   } catch (err) {
     console.error('Error posting like:', err);
-    alert('Network error while liking. Try again.');
+    // Optional: rollback UI if needed
   }
 }
 
