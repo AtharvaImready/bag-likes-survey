@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<title>Bag Likes Survey</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f7f7f7; margin:0; padding:12px; }
+  .bag-container { background:white; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:16px; overflow:hidden; }
+  .carousel { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
+  .carousel img { width:100%; max-width:600px; height:auto; object-fit:cover; scroll-snap-align:start; display:block; }
+  .controls { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; }
+  .like-btn { font-size:20px; border:none; background:transparent; cursor:pointer; padding:6px 10px; }
+  .like-btn.liked { color:#ff4d6d; font-weight:700; }
+  .likes-count { font-size:16px; color:#333; margin-left:8px; }
+  @media (min-width:520px){ body{ padding:20px } .bag-container{ max-width:520px; margin-left:auto; margin-right:auto } }
+</style>
+</head>
+<body>
+
+<div id="bags"></div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycby_pXWdkVA_5bgRSzT3Io8v6ylKmu9cziLfoUJ3juWMbF8CsyjPQJXcUD2R1lt3TTYDpg/exec"; // <-- REPLACE
+
+// Example bagsData. Replace with your 30 bags and their image links (Google Drive direct links)
+const bagsData = [
+  { id: "b00", images: ["https://drive.google.com/uc?export=view&id=1kBPWdathwR7SaMiBPywgf6TY8nLWW2Qc", "https://drive.google.com/uc?export=view&id=1q8ql2dpsHQ4k7xskqPdnR-6jF1b5zNcR"] },
+  { id: "b01", images: ["https://drive.google.com/uc?export=view&id=1p5Gby_CG2gMprwiNItm26dKV8g0aBtjr"] }
+  // add more objects up to 30...
+];
+
+async function fetchInitialLikes() {
+  try {
+    const res = await fetch(scriptURL); // doGet returns JSON map {b00: 3, b01: 0, ...}
+    if (!res.ok) throw new Error('Failed to fetch likes');
+    return await res.json();
+  } catch (err) {
+    console.error('Error fetching likes:', err);
+    return {};
+  }
+}
+
+function renderBags(likesMap) {
+  const container = document.getElementById('bags');
+  container.innerHTML = '';
+  bagsData.forEach(bag => {
+    const alreadyLiked = !!localStorage.getItem('liked_' + bag.id);
+
+    const bagDiv = document.createElement('div');
+    bagDiv.className = 'bag-container';
+
+    const carousel = document.createElement('div');
+    carousel.className = 'carousel';
+    bag.images.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      carousel.appendChild(img);
+    });
+
+    const controls = document.createElement('div');
+    controls.className = 'controls';
+    const left = document.createElement('div');
+    const btn = document.createElement('button');
+    btn.className = 'like-btn' + (alreadyLiked ? ' liked' : '');
+    btn.innerHTML = '❤️';
+    btn.onclick = () => likeBag(bag.id, btn, likesCountEl);
+    const likesCountEl = document.createElement('span');
+    likesCountEl.className = 'likes-count';
+    likesCountEl.innerText = (likesMap[bag.id] || 0);
+
+    left.appendChild(btn);
+    left.appendChild(likesCountEl);
+
+    controls.appendChild(left);
+
+    bagDiv.appendChild(carousel);
+    bagDiv.appendChild(controls);
+    container.appendChild(bagDiv);
+  });
+}
+
+async function likeBag(bagID, btnEl, likesEl) {
+  // prevent multiple likes on same device
+  if (localStorage.getItem('liked_' + bagID)) {
+    alert('You already liked this bag on this device.');
+    return;
+  }
+
+  try {
+    const res = await fetch(scriptURL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bagID: bagID })
+    });
+    const data = await res.json();
+    if (data && data.success) {
+      likesEl.innerText = data.likes;
+      btnEl.classList.add('liked');
+      localStorage.setItem('liked_' + bagID, '1');
+    } else {
+      alert('Like failed. Try again.');
+    }
+  } catch (err) {
+    console.error('Error posting like:', err);
+    alert('Network error while liking. Try again.');
+  }
+}
+
+(async () => {
+  const likesMap = await fetchInitialLikes();
+  renderBags(likesMap);
+})();
+</script>
+
+</body>
+</html>
