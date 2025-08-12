@@ -449,7 +449,7 @@ document.getElementById("survey-submit-btn").addEventListener("click", function(
     // Here you can also run your form submission logic if needed
 
     // Change text
-    this.textContent = "SUBMITTED";
+    this.textContent = "Submit";
     // Disable button
     this.disabled = true;
     // Save state in localStorage so it remembers next time
@@ -460,7 +460,7 @@ document.getElementById("survey-submit-btn").addEventListener("click", function(
 window.addEventListener("load", function() {
     if (localStorage.getItem("surveySubmitted") === "true") {
         let btn = document.getElementById("survey-submit-btn");
-        btn.textContent = "SUBMITTED";
+        btn.textContent = "Submitted";
         btn.disabled = true;
     }
 });
