@@ -66,6 +66,30 @@
     justify-content:flex-start; 
     padding-top:10px; 
   }
+  .swiper-button-next,
+  .swiper-button-prev {
+      background-color: #666; /* Gray background */
+      color: white; /* White arrow */
+      width: 50px;
+      height: 50px;
+      border-radius: 50%; /* Circle shape */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .swiper-button-next::after,
+   .swiper-button-prev::after {
+      font-size: 20px; /* Arrow size */
+  }
+
+  .swiper-button-next {
+      right: 10px; /* Adjust right position */
+  }
+
+  .swiper-button-prev {
+      left: 10px; /* Adjust left position */
+  }
 
 /* ===== SURVEY CONTAINER ===== */
 .survey-questions {
