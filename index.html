@@ -187,7 +187,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.2); 
+    background-color: rgba(255, 255, 255, 0.5); 
     z-index: 0; /* Keep overlay behind text */
   }
 
@@ -255,8 +255,27 @@
     </div>
   </div>
 
-  <button type="button" id="survey-submit-btn" class="survey-submit-btn">Submit</button>
+  <div class="survey-question">
+  <div class="survey-question-title">1. Below what price would you begin to doubt the product’s quality?</div>
+  <div class="survey-options">
+    <label class="survey-option"><input type="radio" name="low_price_doubt" value="500"> ₹500</label>
+    <label class="survey-option"><input type="radio" name="low_price_doubt" value="750"> ₹750</label>
+    <label class="survey-option"><input type="radio" name="low_price_doubt" value="1000"> ₹1,000</label>
+    <label class="survey-option"><input type="radio" name="low_price_doubt" value="1250"> ₹1,250</label>
+  </div>
+</div>
 
+  <div class="survey-question">
+  <div class="survey-question-title">2. Above what price would you consider the product to be too expensive to purchase?</div>
+  <div class="survey-options">
+    <label class="survey-option"><input type="radio" name="high_price_expensive" value="2000"> ₹2,000</label>
+    <label class="survey-option"><input type="radio" name="high_price_expensive" value="2500"> ₹2,500</label>
+    <label class="survey-option"><input type="radio" name="high_price_expensive" value="3000"> ₹3,000</label>
+    <label class="survey-option"><input type="radio" name="high_price_expensive" value="3500"> ₹3,500</label>
+  </div>
+</div>
+  
+  <button type="button" id="survey-submit-btn" class="survey-submit-btn">Submit</button>
 </div>
 
 
