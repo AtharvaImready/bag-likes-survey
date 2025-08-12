@@ -163,16 +163,51 @@
 .survey-submit-btn:hover {
   background-color: #6CB4EE; /* Darker sky blue */
 }
+
+  /* HEADER SECTION STYLING */
+.header-section {
+    /* Your uploaded image URL — replace 'your-image-path.png' with the actual path */
+    background-image: url('');
+    background-size: cover; /* Make the image fill the section */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Avoid repeating the image */
+
+    position: relative; /* Needed for overlay */
+    padding: 40px 20px; /* Space around the text */
+    text-align: center; /* Center text horizontally */
+    color: white; /* Make text visible */
+  }
+
+/* OPTIONAL — dark overlay to make text pop */
+ .header-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Black with 40% transparency */
+    z-index: 0; /* Keep overlay behind text */
+  }
+
+/* Make sure text is above overlay */
+.header-section h1,
+.header-section p {
+    position: relative;
+    z-index: 1;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Shadow for readability */
+ }
+
 </style>
 </head>
 <body>
 
 <!-- Added Header Section -->
-<div class="header">
-  <h1>Bag Preference Survey</h1>
-  <p>Please select the bags you would consider buying and answer a few quick questions.</p>
+<!-- HEADER SECTION START -->
+<div class="header-section">
+    <h1>Bag Preference Survey</h1>
+    <p>Please select the bags you would consider buying and answer a few quick questions.</p>
 </div>
-
 <div id="bags"></div>
 
 <!-- Survey Questions Section -->
