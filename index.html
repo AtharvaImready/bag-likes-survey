@@ -191,7 +191,8 @@
     </div>
   </div>
 
-  <button type="button" class="survey-submit-btn">Submit Answers</button>
+  <button type="button" id="survey-submit-btn" class="survey-submit-btn">Submit</button>
+
 </div>
 
 
@@ -353,6 +354,29 @@ async function likeBag(bagID, btnEl, likesEl) {
   const likesMap = await fetchInitialLikes();
   renderBags(likesMap);
 })();
+</script>
+
+  
+  <script>
+document.getElementById("survey-submit-btn").addEventListener("click", function() {
+    // Here you can also run your form submission logic if needed
+
+    // Change text
+    this.textContent = "Submitted ✅";
+    // Disable button
+    this.disabled = true;
+    // Save state in localStorage so it remembers next time
+    localStorage.setItem("surveySubmitted", "true");
+});
+
+// On page load, check if already submitted
+window.addEventListener("load", function() {
+    if (localStorage.getItem("surveySubmitted") === "true") {
+        let btn = document.getElementById("survey-submit-btn");
+        btn.textContent = "Submitted ✅";
+        btn.disabled = true;
+    }
+});
 </script>
 
 </body>
