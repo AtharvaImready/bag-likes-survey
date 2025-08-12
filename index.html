@@ -374,16 +374,13 @@ function renderBags(likesMap) {
 
     const likeBtn = document.createElement('button');
     likeBtn.className = 'like-btn' + (alreadyLiked ? ' liked' : '');
-    likeBtn.innerHTML = '❤️';
+    likeBtn.innerHTML = alreadyLiked ? '❤️' : '🤍';
+
 
     const likesCountEl = document.createElement('span');
-    likesCountEl.className = 'likes-count';
-    likesCountEl.innerText = (likesMap[bag.id] || 0);
-
-    likeBtn.onclick = () => likeBag(bag.id, likeBtn, likesCountEl);
-
-    controls.appendChild(likeBtn);
-    controls.appendChild(likesCountEl);
+   likeBtn.onclick = () => likeBag(bag.id, likeBtn, likesCountEl);
+   controls.appendChild(likeBtn);
+    
 
     bagDiv.appendChild(controls);
 
@@ -403,14 +400,13 @@ function renderBags(likesMap) {
     });
   });
 }
-async function likeBag(bagID, btnEl, likesEl) {
+async function likeBag(bagID, btnEl, ) {
   const likedKey = 'liked_' + bagID;
-  let currentLikes = parseInt(likesEl.innerText) || 0;
 
   if (localStorage.getItem(likedKey)) {
     // Unlike action
-    likesEl.innerText = Math.max(0, currentLikes - 1);
     btnEl.classList.remove('liked');
+    btnEl.innerHTML = '🤍';
     localStorage.removeItem(likedKey);
 
     try {
@@ -425,8 +421,8 @@ async function likeBag(bagID, btnEl, likesEl) {
     }
   } else {
     // Like action
-    likesEl.innerText = currentLikes + 1;
     btnEl.classList.add('liked');
+    btnEl.innerHTML = '❤️';
     localStorage.setItem(likedKey, '1');
 
     try {
