@@ -4,28 +4,37 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta charset="utf-8">
 <title>Bag Likes Survey</title>
+
+<!-- Swiper CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+/>
+
 <style>
   body { font-family: Arial, sans-serif; background:#f7f7f7; margin:0; padding:12px; }
-  .bag-container { background:white; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:16px; overflow:hidden; }
-  .carousel { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
-  .carousel img { width:100%; max-width:600px; height:auto; object-fit:cover; scroll-snap-align:start; display:block; }
-  .controls { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; }
+  .bag-container { background:white; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:16px; overflow:hidden; max-width:520px; margin-left:auto; margin-right:auto; padding:10px; }
   .like-btn { font-size:20px; border:none; background:transparent; cursor:pointer; padding:6px 10px; }
   .like-btn.liked { color:#ff4d6d; font-weight:700; }
   .likes-count { font-size:16px; color:#333; margin-left:8px; }
-  @media (min-width:520px){ body{ padding:20px } .bag-container{ max-width:520px; margin-left:auto; margin-right:auto } }
+  h3 { margin-bottom:8px; }
+  .swiper { width: 100%; height: 300px; }
+  .swiper-slide img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .controls { display:flex; align-items:center; justify-content:flex-start; padding-top:10px; }
 </style>
 </head>
 <body>
 
 <div id="bags"></div>
 
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
 <script>
 const scriptURL = "https://script.google.com/macros/s/AKfycby_pXWdkVA_5bgRSzT3Io8v6ylKmu9cziLfoUJ3juWMbF8CsyjPQJXcUD2R1lt3TTYDpg/exec"; // <-- REPLACE
 
-// Example bagsData. Replace with your 30 bags and their image links (Google Drive direct links)
 const bagsData = [
-   { id: "b00", images: ["images/b00.jpg", "images/b00_1.jpg", "images/b00_2.jpg"] },
+  { id: "b00", images: ["images/b00.jpg", "images/b00_1.jpg", "images/b00_2.jpg"] },
   { id: "b01", images: ["images/b01.jpg", "images/b01_1.jpg", "images/b01_2.jpg"] },
   { id: "b02", images: ["images/b02.jpg", "images/b02_1.jpg", "images/b02_2.jpg"] },
   { id: "b03", images: ["images/b03.jpg", "images/b03_1.jpg"] },
@@ -34,7 +43,7 @@ const bagsData = [
 
 async function fetchInitialLikes() {
   try {
-    const res = await fetch(scriptURL); // doGet returns JSON map {b00: 3, b01: 0, ...}
+    const res = await fetch(scriptURL);
     if (!res.ok) throw new Error('Failed to fetch likes');
     return await res.json();
   } catch (err) {
@@ -46,43 +55,89 @@ async function fetchInitialLikes() {
 function renderBags(likesMap) {
   const container = document.getElementById('bags');
   container.innerHTML = '';
-  bagsData.forEach(bag => {
+
+  bagsData.forEach((bag, index) => {
     const alreadyLiked = !!localStorage.getItem('liked_' + bag.id);
 
     const bagDiv = document.createElement('div');
     bagDiv.className = 'bag-container';
 
-    const carousel = document.createElement('div');
-    carousel.className = 'carousel';
+    // Title
+    const title = document.createElement('h3');
+    title.innerText = `Bag ID: ${bag.id}`;
+    bagDiv.appendChild(title);
+
+    // Swiper container unique class/id to avoid conflicts
+    const swiperContainer = document.createElement('div');
+    swiperContainer.className = 'swiper';
+    swiperContainer.id = 'swiper-' + index;
+
+    // Swiper wrapper
+    const swiperWrapper = document.createElement('div');
+    swiperWrapper.className = 'swiper-wrapper';
+
     bag.images.forEach(src => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+
       const img = document.createElement('img');
       img.src = src;
-      carousel.appendChild(img);
+      slide.appendChild(img);
+
+      swiperWrapper.appendChild(slide);
     });
 
+    swiperContainer.appendChild(swiperWrapper);
+
+    // Navigation buttons
+    const btnPrev = document.createElement('div');
+    btnPrev.className = 'swiper-button-prev';
+    swiperContainer.appendChild(btnPrev);
+
+    const btnNext = document.createElement('div');
+    btnNext.className = 'swiper-button-next';
+    swiperContainer.appendChild(btnNext);
+
+    // Pagination
+    const pagination = document.createElement('div');
+    pagination.className = 'swiper-pagination';
+    swiperContainer.appendChild(pagination);
+
+    bagDiv.appendChild(swiperContainer);
+
+    // Controls (like button + count)
     const controls = document.createElement('div');
     controls.className = 'controls';
 
-    const left = document.createElement('div');
-
-    const btn = document.createElement('button');
-    btn.className = 'like-btn' + (alreadyLiked ? ' liked' : '');
-    btn.innerHTML = '❤️';
+    const likeBtn = document.createElement('button');
+    likeBtn.className = 'like-btn' + (alreadyLiked ? ' liked' : '');
+    likeBtn.innerHTML = '❤️';
 
     const likesCountEl = document.createElement('span');
     likesCountEl.className = 'likes-count';
     likesCountEl.innerText = (likesMap[bag.id] || 0);
 
-    btn.onclick = () => likeBag(bag.id, btn, likesCountEl);
+    likeBtn.onclick = () => likeBag(bag.id, likeBtn, likesCountEl);
 
-    left.appendChild(btn);
-    left.appendChild(likesCountEl);
+    controls.appendChild(likeBtn);
+    controls.appendChild(likesCountEl);
 
-    controls.appendChild(left);
-
-    bagDiv.appendChild(carousel);
     bagDiv.appendChild(controls);
+
     container.appendChild(bagDiv);
+
+    // Initialize swiper for this bag
+    new Swiper('#' + swiperContainer.id, {
+      loop: true,
+      navigation: {
+        nextEl: '#' + swiperContainer.id + ' .swiper-button-next',
+        prevEl: '#' + swiperContainer.id + ' .swiper-button-prev',
+      },
+      pagination: {
+        el: '#' + swiperContainer.id + ' .swiper-pagination',
+        clickable: true,
+      },
+    });
   });
 }
 
@@ -92,7 +147,6 @@ async function likeBag(bagID, btnEl, likesEl) {
     return;
   }
 
-  // Instantly update count locally
   let currentLikes = parseInt(likesEl.innerText) || 0;
   likesEl.innerText = currentLikes + 1;
   btnEl.classList.add('liked');
@@ -101,14 +155,12 @@ async function likeBag(bagID, btnEl, likesEl) {
   try {
     await fetch(scriptURL, {
       method: 'POST',
-      mode: 'no-cors', // prevents network error popup
+      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ bagID: bagID })
     });
-    // No response parsing here due to no-cors
   } catch (err) {
     console.error('Error posting like:', err);
-    // Optional: rollback UI if needed
   }
 }
 
