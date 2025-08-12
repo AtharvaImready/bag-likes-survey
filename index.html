@@ -67,89 +67,75 @@
     padding-top:10px; 
   }
 
-  /* ===== NEW SURVEY STYLES ===== */
-  .survey-questions {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    max-width: 520px;
-    margin: 20px auto;
-    padding: 20px;
-  }
-  .survey-question {
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #333;
-  }
-  .survey-options {
-    margin: 15px 0;
-  }
-  .survey-option {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.2s;
-    cursor: pointer;
-  }
-  .survey-option:hover {
-    background-color: #f0f0f0;
-  }
-  .survey-option input[type="radio"] {
-    margin-right: 10px;
-    accent-color: #ff4d6d;
-  }
-  .submit-btn {
-    background-color: #ff4d6d;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 5px;
-    margin-top: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  .submit-btn:hover {
-    background-color: #e0445e;
-  }
-  .survey-submit-btn {
-    background-color: #87CEFA; /* Light sky blue */
-    color: #333;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    max-width: 520px;
-    margin: 25px auto 0;
-    transition: background-color 0.3s;
-  }
+/* ===== SURVEY CONTAINER ===== */
+.survey-questions {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-width: 520px;
+  margin: 20px auto;
+  padding: 25px; /* Increased padding */
+}
 
-  .survey-submit-btn:hover {
-    background-color: #6CB4EE; /* Slightly darker sky blue on hover */
-  }
-  .survey-questions {
-  /* Your existing styles... */
-    padding: 25px; /* Increased inner padding */
-  }
+/* ===== QUESTION STYLES ===== */
+.survey-question {
+  font-weight: bold;
+  margin-bottom: 20px; /* Increased space below questions */
+  color: #333;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0; /* Subtle divider */
+}
 
-  .question {
-    margin-bottom: 30px; /* Increased space between questions */
-    padding-bottom: 20px; /* Space below each question */
-    border-bottom: 1px solid #f0f0f0; /* Optional subtle divider */
-  }
+/* ===== OPTIONS CONTAINER ===== */
+.survey-options {
+  display: flex;
+  flex-direction: column; /* Vertical layout */
+  gap: 10px; /* Consistent spacing between options */
+  margin: 15px 0 25px;
+}
 
-  .question-title {
-    margin-bottom: 15px; /* Space between question and options */
-  }
+/* ===== INDIVIDUAL OPTION ===== */
+.survey-option {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
 
-  .options label {
-    margin: 12px 0; /* Increased space between options */
-  }
+.survey-option:hover {
+  background-color: #f0f0f0;
+}
+
+.survey-option input[type="radio"] {
+  margin-right: 12px;
+  accent-color: #ff4d6d;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.survey-submit-btn {
+  background-color: #87CEFA; /* Light sky blue */
+  color: #333;
+  border: none;
+  padding: 14px 24px; /* Slightly taller */
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin: 30px auto 0;
+  transition: background-color 0.3s;
+}
+
+.survey-submit-btn:hover {
+  background-color: #6CB4EE; /* Darker sky blue */
+}
 </style>
 </head>
 <body>
@@ -162,50 +148,49 @@
 
 <div id="bags"></div>
 
-  <!-- Survey Questions Section -->
+<!-- Survey Questions Section -->
 <div class="survey-questions">
-  <div class="question">
-    <div class="question-title">1. What is your age group?</div>
-    <div class="options">
-      <label><input type="radio" name="age" value="18-21"> 18–21 years</label>
-      <label><input type="radio" name="age" value="22-25"> 22–25 years</label>
-      <label><input type="radio" name="age" value="26-29"> 26–29 years</label>
-      <label><input type="radio" name="age" value="30-33"> 30–33 years</label>
+  <div class="survey-question">
+    <div class="survey-question-title">1. What is your age group?</div>
+    <div class="survey-options">
+      <label class="survey-option"><input type="radio" name="age" value="18-21"> 18–21 years</label>
+      <label class="survey-option"><input type="radio" name="age" value="22-25"> 22–25 years</label>
+      <label class="survey-option"><input type="radio" name="age" value="26-29"> 26–29 years</label>
+      <label class="survey-option"><input type="radio" name="age" value="30-33"> 30–33 years</label>
     </div>
   </div>
 
-  <div class="question">
-    <div class="question-title">2. How often do you buy new bags?</div>
-    <div class="options">
-      <label><input type="radio" name="frequency" value="weekly"> Weekly</label>
-      <label><input type="radio" name="frequency" value="monthly"> Monthly</label>
-      <label><input type="radio" name="frequency" value="yearly"> Yearly</label>
-      <label><input type="radio" name="frequency" value="rarely"> Rarely</label>
+  <div class="survey-question">
+    <div class="survey-question-title">2. How often do you buy new bags?</div>
+    <div class="survey-options">
+      <label class="survey-option"><input type="radio" name="frequency" value="weekly"> Weekly</label>
+      <label class="survey-option"><input type="radio" name="frequency" value="monthly"> Monthly</label>
+      <label class="survey-option"><input type="radio" name="frequency" value="yearly"> Yearly</label>
+      <label class="survey-option"><input type="radio" name="frequency" value="rarely"> Rarely</label>
     </div>
   </div>
 
-  <div class="question">
-    <div class="question-title">3. What's most important when choosing a bag?</div>
-    <div class="options">
-      <label><input type="radio" name="priority" value="price"> Price</label>
-      <label><input type="radio" name="priority" value="design"> Design</label>
-      <label><input type="radio" name="priority" value="brand"> Brand</label>
-      <label><input type="radio" name="priority" value="durability"> Durability</label>
+  <div class="survey-question">
+    <div class="survey-question-title">3. What's most important when choosing a bag?</div>
+    <div class="survey-options">
+      <label class="survey-option"><input type="radio" name="priority" value="price"> Price</label>
+      <label class="survey-option"><input type="radio" name="priority" value="design"> Design</label>
+      <label class="survey-option"><input type="radio" name="priority" value="brand"> Brand</label>
+      <label class="survey-option"><input type="radio" name="priority" value="durability"> Durability</label>
     </div>
   </div>
   
-  <div class="question">
-    <div class="question-title">4. What price range would you be willing to spend on a bag?</div>
-    <div class="options">
-      <label><input type="radio" name="price" value="under-1000"> Under ₹1,000</label>
-      <label><input type="radio" name="price" value="1000-2500"> ₹1,000 – ₹2,500</label>
-      <label><input type="radio" name="price" value="2500-5000"> ₹2,500 – ₹5,000</label>
-      <label><input type="radio" name="price" value="5000-10000"> ₹5,000 – ₹10,000</label>
-      <label><input type="radio" name="price" value="above-10000"> Above ₹10,000</label>
+  <div class="survey-question">
+    <div class="survey-question-title">4. What price range would you be willing to spend on a bag?</div>
+    <div class="survey-options">
+      <label class="survey-option"><input type="radio" name="price" value="under-1000"> Under ₹1,000</label>
+      <label class="survey-option"><input type="radio" name="price" value="1000-2500"> ₹1,000 – ₹2,500</label>
+      <label class="survey-option"><input type="radio" name="price" value="2500-5000"> ₹2,500 – ₹5,000</label>
+      <label class="survey-option"><input type="radio" name="price" value="5000-10000"> ₹5,000 – ₹10,000</label>
+      <label class="survey-option"><input type="radio" name="price" value="above-10000"> Above ₹10,000</label>
     </div>
   </div>
 
-  
   <button type="button" class="survey-submit-btn">Submit Answers</button>
 </div>
 
