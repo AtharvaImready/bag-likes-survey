@@ -140,29 +140,46 @@ function renderBags(likesMap) {
     });
   });
 }
-
 async function likeBag(bagID, btnEl, likesEl) {
-  if (localStorage.getItem('liked_' + bagID)) {
-    alert('You already liked this bag on this device.');
-    return;
-  }
-
+  const likedKey = 'liked_' + bagID;
   let currentLikes = parseInt(likesEl.innerText) || 0;
-  likesEl.innerText = currentLikes + 1;
-  btnEl.classList.add('liked');
-  localStorage.setItem('liked_' + bagID, '1');
 
-  try {
-    await fetch(scriptURL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bagID: bagID })
-    });
-  } catch (err) {
-    console.error('Error posting like:', err);
+  if (localStorage.getItem(likedKey)) {
+    // Unlike action
+    likesEl.innerText = Math.max(0, currentLikes - 1);
+    btnEl.classList.remove('liked');
+    localStorage.removeItem(likedKey);
+
+    try {
+      await fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bagID: bagID, action: 'unlike' })
+      });
+    } catch (err) {
+      console.error('Error posting unlike:', err);
+    }
+  } else {
+    // Like action
+    likesEl.innerText = currentLikes + 1;
+    btnEl.classList.add('liked');
+    localStorage.setItem(likedKey, '1');
+
+    try {
+      await fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bagID: bagID, action: 'like' })
+      });
+    } catch (err) {
+      console.error('Error posting like:', err);
+    }
   }
 }
+
+
 
 (async () => {
   const likesMap = await fetchInitialLikes();
