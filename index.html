@@ -466,7 +466,39 @@ window.addEventListener("load", function() {
         btn.disabled = true;
     }
 });
+    
 </script>
+
+  <script>
+  const hearts = document.querySelectorAll('.heart');
+  const likesData = { b00: 0, b01: 0, b02: 0, b03: 0, b04: 0 };
+
+  // Toggle heart color and set like/unlike
+  hearts.forEach(heart => {
+    heart.addEventListener('click', () => {
+      const bagId = heart.parentElement.getAttribute('data-bagid');
+      heart.classList.toggle('liked');
+      likesData[bagId] = heart.classList.contains('liked') ? 1 : 0;
+    });
+  });
+
+  // Submit data to Google Sheet
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    fetch("https://script.google.com/macros/s/AKfycbxxGy0nsqE5E7Kg3UfRSdcAWYnFrzhM8iAUU2QrgAtAtIyVtdOJPTVz_-1dqMXXsuJd/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(likesData)
+    })
+    .then(() => {
+      alert("Your responses have been submitted. Thank you!");
+    })
+    .catch(err => {
+      console.error("Error submitting data:", err);
+    });
+  });
+</script>
+
 
 </body>
 </html>
