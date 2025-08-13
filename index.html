@@ -3,502 +3,366 @@
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta charset="utf-8">
-<title>Bag Likes Survey</title>
+<title>Bag Preference Survey</title>
 
-  <!-- Your CSS file -->
-  <link rel="stylesheet" href="styles.css">
+<!-- External CSS file (optional if you want to move CSS out) -->
+<link rel="stylesheet" href="styles.css">
 
 <!-- Swiper CSS -->
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
 <style>
-  /* Global & Layout Styles */
-  body, html {
-  margin: 0;
-  padding: 0;
-  font-family: "Times New Roman", sans-serif;
-  background-color: #fff2e6; /* Light skin color background */
+/* ================= GLOBAL PAGE STYLES ================= */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: "Times New Roman", sans-serif;
+    background-color: #fff2e6;
 }
-  
-  /* Header Styles */
-  .header { text-align: center; margin-bottom: 20px; }
-  .header h1 { color: black !important; margin-bottom: 8px; }
-  .header p { color:  black !important; margin-top: 0; }
-  
-  /* Bag Container Styles */
-  .bag-container { 
-    background:white; 
-    border-radius:10px; 
-    box-shadow:0 2px 8px rgba(0,0,0,0.08); 
-    margin-bottom:16px; 
-    overflow:hidden; 
-    max-width:520px; 
-    margin-left:auto; 
-    margin-right:auto; 
-    padding:10px; 
-  }
-  
-  /* Like Button Styles */
-  .like-btn { 
-    font-size:20px; 
-    border:none; 
-    background:transparent; 
-    cursor:pointer; 
-    padding:6px 10px; 
-  }
-  .like-btn.liked { 
-    color:#ff4d6d; 
-    font-weight:700; 
-  }
-  .likes-count { 
-    font-size:16px; 
-    color:#333; 
-    margin-left:8px; 
-  }
-  
-  /* Swiper Styles */
-  h3 { margin-bottom:8px; }
-  .swiper { width: 100%; height: 300px; }
-  .swiper-slide img { 
+
+/* ================= HEADER SECTION ================= */
+.header-section {
+    padding: 20px 20px 40px 20px;
+    text-align: center;
+}
+.header-section h1 {
+    margin: 0;
+}
+.header-section p {
+    font-size: 14px;
+    color: #333;
+    margin-top: 8px;
+}
+
+/* ================= BAG DISPLAY STYLES ================= */
+.bag-container { 
+    background: white; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+    margin-bottom: 16px; 
+    overflow: hidden; 
+    max-width: 520px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    padding: 10px; 
+}
+h3 {
+    margin-bottom: 8px;
+}
+.swiper { width: 100%; height: 300px; }
+.swiper-slide img { 
     width: 100%; 
     height: 100%; 
     object-fit: contain; 
-    display: block; 
-  }
-  .controls { 
-    display:flex; 
-    align-items:center; 
-    justify-content:flex-start; 
-    padding-top:10px; 
-  }
-  .swiper-button-next,
-  .swiper-button-prev {
-      background-color: rgba(160, 160, 160, 0.8); /* Gray background */
-      color: white; /* White arrow */
-      width: 25px;
-      height: 25px;
-      border-radius: 50%; /* Circle shape */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-   }
+}
+.controls { 
+    display: flex; 
+    align-items: center; 
+    padding-top: 10px; 
+}
+.like-btn { 
+    font-size: 20px; 
+    border: none; 
+    background: transparent; 
+    cursor: pointer; 
+}
+.like-btn.liked { 
+    color: #ff4d6d; 
+    font-weight: bold; 
+}
 
-   .swiper-button-next::after,
-   .swiper-button-prev::after {
-      font-size: 10px; /* Arrow size */
-      font-weight: bold; /* bold arrow */
-      margin: 0 !important; /* remove extra offset */
-      position: static !important; /* stop absolute positioning */
-  }
+/* Swiper nav buttons styling */
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: rgba(160, 160, 160, 0.8);
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 10px;
+    font-weight: bold;
+}
 
-  .swiper-button-next {
-      right: 10px; /* Adjust right position */
-  }
-
-  .swiper-button-prev {
-      left: 10px; /* Adjust left position */
-  }
-
-/* ===== SURVEY CONTAINER ===== */
+/* ================= SURVEY FORM STYLES ================= */
 .survey-questions {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  max-width: 520px;
-  margin: 20px auto;
-  padding: 25px; /* Increased padding */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    max-width: 520px;
+    margin: 20px auto;
+    padding: 25px;
 }
-
-/* ===== QUESTION STYLES ===== */
 .survey-question {
-  font-weight: bold;
-  margin-bottom: 20px; /* Increased space below questions */
-  color: #333;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #f0f0f0; /* Subtle divider */
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
 }
-
-/* ===== OPTIONS CONTAINER ===== */
 .survey-options {
-  display: flex;
-  flex-direction: column; /* Vertical layout */
-  gap: 10px; /* Consistent spacing between options */
-  margin: 15px 0 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0 25px;
 }
-
-/* ===== INDIVIDUAL OPTION ===== */
 .survey-option {
-  display: flex;
-  align-items: center;
-  padding: 12px 15px;
-  background-color: #f9f9f9;
-  border-radius: 6px;
-  transition: all 0.2s;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    cursor: pointer;
 }
-
 .survey-option:hover {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
-
 .survey-option input[type="radio"] {
-  margin-right: 12px;
-  accent-color: #ff4d6d;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
+    margin-right: 12px;
+    accent-color: #ff4d6d;
 }
 
-/* ===== SUBMIT BUTTON =====color: black !important; */
+/* Submit button */
 .survey-submit-btn {
-  background-color: #87CEFA; /* Light sky blue */
-  color: #000000;
-  border: none;
-  padding: 14px 24px; /* Slightly taller */
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  margin: 30px auto 0;
-  transition: background-color 0.3s;
-  
+    background-color: #87CEFA;
+    color: black;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
 }
-
 .survey-submit-btn:hover {
-  background-color: #6CB4EE; /* Darker sky blue */
+    background-color: #6CB4EE;
 }
-
-  /* HEADER SECTION STYLING */
-  .header-section {
-    padding:20px 20px 40px 20px;
-    margin: 0;
-    background-size: cover;      /* You can remove this line if no background image */
-    background-position: center; /* Optional */
-    background-repeat: no-repeat; /* Optional */
-    position: relative;
-    text-align: center;
-}
-  .header-section h1 {
-    margin-top: 0;  /* remove extra top margin from heading */
-    margin-bottom: 0; /* remove bottom margin */
-}
-  .header-section p {
-  font-size: 14px;       /* smaller font size, adjust as you like */
-  color: #333333;        /* dark gray color */
-  margin-top: 8px;       /* optional: small gap from heading */
-  margin-bottom: 0;      /* remove bottom space */
-}
-  input[name="city"] {
-  margin-top: 12px; /* Adjust this value as needed */
-  display: block; /* ensure it takes full width below the label */
-  width: 100%; /* keep full width */
-  box-sizing: border-box;
-}
-
-
-
-
 </style>
 </head>
 <body>
 
-<!-- Added Header Section -->
-<!-- HEADER SECTION START -->
+<!-- ================== PAGE HEADER ================== -->
 <div class="header-section">
     <h1>Bag Preference Survey</h1>
-    <p>Please like the images of the bags you would consider buying, then answer a few quick questions.</p>
+    <p>Please like the images of the bags you would consider buying, then answer the questions below.</p>
 </div>
+
+<!-- ================== BAG DISPLAY WILL RENDER HERE ================== -->
 <div id="bags"></div>
 
-<!-- Survey Questions Section -->
+<!-- ================== SURVEY QUESTIONS ================== -->
 <div class="survey-questions">
 
-  <div class="survey-question">
-    <div class="survey-question-title">1. How often do you buy new bags?</div>
-    <div class="survey-options">
-      <label class="survey-option"><input type="radio" name="frequency" value="weekly"> Weekly</label>
-      <label class="survey-option"><input type="radio" name="frequency" value="monthly"> Monthly</label>
-      <label class="survey-option"><input type="radio" name="frequency" value="yearly"> Yearly</label>
-      <label class="survey-option"><input type="radio" name="frequency" value="rarely"> Rarely</label>
+    <div class="survey-question">
+        <div class="survey-question-title">1. How often do you buy new bags?</div>
+        <div class="survey-options">
+            <label class="survey-option"><input type="radio" name="frequency" value="weekly"> Weekly</label>
+            <label class="survey-option"><input type="radio" name="frequency" value="monthly"> Monthly</label>
+            <label class="survey-option"><input type="radio" name="frequency" value="yearly"> Yearly</label>
+            <label class="survey-option"><input type="radio" name="frequency" value="rarely"> Rarely</label>
+        </div>
     </div>
-  </div>
 
-  <div class="survey-question">
-    <div class="survey-question-title">2. What's most important when choosing a bag?</div>
-    <div class="survey-options">
-      <label class="survey-option"><input type="radio" name="priority" value="price"> Price</label>
-      <label class="survey-option"><input type="radio" name="priority" value="design"> Design</label>
-      <label class="survey-option"><input type="radio" name="priority" value="brand"> Brand</label>
-      <label class="survey-option"><input type="radio" name="priority" value="durability"> Durability</label>
+    <div class="survey-question">
+        <div class="survey-question-title">2. What's most important when choosing a bag?</div>
+        <div class="survey-options">
+            <label class="survey-option"><input type="radio" name="priority" value="price"> Price</label>
+            <label class="survey-option"><input type="radio" name="priority" value="design"> Design</label>
+            <label class="survey-option"><input type="radio" name="priority" value="brand"> Brand</label>
+            <label class="survey-option"><input type="radio" name="priority" value="durability"> Durability</label>
+        </div>
     </div>
-  </div>
-  
-  <div class="survey-question">
-    <div class="survey-question-title">3. What price range would you be willing to spend on a bag?</div>
-    <div class="survey-options">
-      <label class="survey-option"><input type="radio" name="price" value="under-1000"> Under ₹1,000</label>
-      <label class="survey-option"><input type="radio" name="price" value="1000-2500"> ₹1,000 – ₹2,500</label>
-      <label class="survey-option"><input type="radio" name="price" value="2500-5000"> ₹2,500 – ₹5,000</label>
-      <label class="survey-option"><input type="radio" name="price" value="5000-10000"> ₹5,000 – ₹10,000</label>
-      <label class="survey-option"><input type="radio" name="price" value="above-10000"> Above ₹10,000</label>
+
+    <div class="survey-question">
+        <div class="survey-question-title">3. Price range you'd spend on a bag?</div>
+        <div class="survey-options">
+            <label class="survey-option"><input type="radio" name="price" value="under-1000"> Under ₹1,000</label>
+            <label class="survey-option"><input type="radio" name="price" value="1000-2500"> ₹1,000 – ₹2,500</label>
+            <label class="survey-option"><input type="radio" name="price" value="2500-5000"> ₹2,500 – ₹5,000</label>
+            <label class="survey-option"><input type="radio" name="price" value="5000-10000"> ₹5,000 – ₹10,000</label>
+            <label class="survey-option"><input type="radio" name="price" value="above-10000"> Above ₹10,000</label>
+        </div>
     </div>
-  </div>
 
-  <div class="survey-question">
-  <div class="survey-question-title">4. Below what price would you begin to doubt the product’s quality?</div>
-  <div class="survey-options">
-    <label class="survey-option"><input type="radio" name="low_price_doubt" value="500"> ₹500</label>
-    <label class="survey-option"><input type="radio" name="low_price_doubt" value="750"> ₹750</label>
-    <label class="survey-option"><input type="radio" name="low_price_doubt" value="1000"> ₹1,000</label>
-    <label class="survey-option"><input type="radio" name="low_price_doubt" value="1250"> ₹1,250</label>
-  </div>
-</div>
-
-  <div class="survey-question">
-  <div class="survey-question-title">5. Above what price would you consider the product to be too expensive to purchase?</div>
-  <div class="survey-options">
-    <label class="survey-option"><input type="radio" name="high_price_expensive" value="2000"> ₹2,000</label>
-    <label class="survey-option"><input type="radio" name="high_price_expensive" value="2500"> ₹2,500</label>
-    <label class="survey-option"><input type="radio" name="high_price_expensive" value="3000"> ₹3,000</label>
-    <label class="survey-option"><input type="radio" name="high_price_expensive" value="3500"> ₹3,500</label>
-  </div>
-</div>
-  
-  <div class="survey-question">
-    <div class="survey-question-title">6. What is your age group?</div>
-    <div class="survey-options">
-      <label class="survey-option"><input type="radio" name="age" value="18-21"> 18–21 years</label>
-      <label class="survey-option"><input type="radio" name="age" value="22-25"> 22–25 years</label>
-      <label class="survey-option"><input type="radio" name="age" value="26-29"> 26–29 years</label>
-      <label class="survey-option"><input type="radio" name="age" value="30-33"> 30–33 years</label>
+    <div class="survey-question">
+        <div class="survey-question-title">4. Below what price would you doubt the quality?</div>
+        <div class="survey-options">
+            <label class="survey-option"><input type="radio" name="low_price_doubt" value="500"> ₹500</label>
+            <label class="survey-option"><input type="radio" name="low_price_doubt" value="750"> ₹750</label>
+            <label class="survey-option"><input type="radio" name="low_price_doubt" value="1000"> ₹1,000</label>
+            <label class="survey-option"><input type="radio" name="low_price_doubt" value="1250"> ₹1,250</label>
+        </div>
     </div>
-  </div>
 
+    <div class="survey-question">
+        <div class="survey-question-title">5. Above what price is it too expensive?</div>
+        <div class="survey-options">
+            <label class="survey-option"><input type="radio" name="high_price_expensive" value="2000"> ₹2,000</label>
+            <label class="survey-option"><input type="radio" name="high_price_expensive" value="2500"> ₹2,500</label>
+            <label class="survey-option"><input type="radio" name="high_price_expensive" value="3000"> ₹3,000</label>
+            <label class="survey-option"><input type="radio" name="high_price_expensive" value="3500"> ₹3,500</label>
+        </div>
+    </div>
 
-  <div class="survey-question">
-  <div class="survey-question-title">7. What city do you live in?</div>
-  <input type="text" name="city" placeholder="Enter your city" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+    <div class="survey-question">
+        <div class="survey-question-title">6. What is your age group?</div>
+        <div class="survey-options">
+            <label class="survey-option"><input type="radio" name="age" value="18-21"> 18–21 years</label>
+            <label class="survey-option"><input type="radio" name="age" value="22-25"> 22–25 years</label>
+            <label class="survey-option"><input type="radio" name="age" value="26-29"> 26–29 years</label>
+            <label class="survey-option"><input type="radio" name="age" value="30-33"> 30–33 years</label>
+        </div>
+    </div>
+
+    <div class="survey-question">
+        <div class="survey-question-title">7. What city do you live in?</div>
+        <input type="text" name="city" placeholder="Enter your city" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+    </div>
+
+    <button type="button" id="survey-submit-btn" class="survey-submit-btn">Submit</button>
 </div>
-
-  
-  <button type="button" id="survey-submit-btn" class="survey-submit-btn">Submit</button>
-</div>
-
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <script>
-
+// ==================== CONFIG ====================
+const scriptURL = "https://script.google.com/macros/s/AKfycbxxGy0nsqE5E7Kg3UfRSdcAWYnFrzhM8iAUU2QrgAtAtIyVtdOJPTVz_-1dqMXXsuJd/exec"; // <-- Replace with your actual Apps Script Web App URL
 const bagsData = [
-  { id: "b00", images: ["images/b00.jpg", "images/b00_1.jpg", "images/b00_2.jpg"] },
-  { id: "b01", images: ["images/b01.jpg", "images/b01_1.jpg", "images/b01_2.jpg"] },
-  { id: "b02", images: ["images/b02.jpg", "images/b02_1.jpg", "images/b02_2.jpg"] },
-  { id: "b03", images: ["images/b03.jpg"] },
-  { id: "b04", images: ["images/b04.jpg"] }
+    { id: "b00", images: ["images/b00.jpg", "images/b00_1.jpg", "images/b00_2.jpg"] },
+    { id: "b01", images: ["images/b01.jpg", "images/b01_1.jpg", "images/b01_2.jpg"] },
+    { id: "b02", images: ["images/b02.jpg", "images/b02_1.jpg", "images/b02_2.jpg"] },
+    { id: "b03", images: ["images/b03.jpg"] },
+    { id: "b04", images: ["images/b04.jpg"] }
 ];
+// Keep track of likes before submission
+const likesData = { b00: 0, b01: 0, b02: 0, b03: 0, b04: 0 };
 
-async function fetchInitialLikes() {
-  try {
-    const res = await fetch(scriptURL);
-    if (!res.ok) throw new Error('Failed to fetch likes');
-    return await res.json();
-  } catch (err) {
-    console.error('Error fetching likes:', err);
-    return {};
-  }
-}
+// ==================== RENDER BAGS ====================
+function renderBags() {
+    const container = document.getElementById('bags');
+    container.innerHTML = '';
 
-function renderBags(likesMap) {
-  const container = document.getElementById('bags');
-  container.innerHTML = '';
+    bagsData.forEach((bag, index) => {
+        const bagDiv = document.createElement('div');
+        bagDiv.className = 'bag-container';
 
-  bagsData.forEach((bag, index) => {
-    const alreadyLiked = !!localStorage.getItem('liked_' + bag.id);
+        // Title
+        const title = document.createElement('h3');
+        title.innerText = `Bag ID: ${bag.id}`;
+        bagDiv.appendChild(title);
 
-    const bagDiv = document.createElement('div');
-    bagDiv.className = 'bag-container';
+        // Swiper container
+        const swiperContainer = document.createElement('div');
+        swiperContainer.className = 'swiper';
+        swiperContainer.id = 'swiper-' + index;
 
-    // Title
-    const title = document.createElement('h3');
-    title.innerText = `Bag ID: ${bag.id}`;
-    bagDiv.appendChild(title);
+        const swiperWrapper = document.createElement('div');
+        swiperWrapper.className = 'swiper-wrapper';
 
-    // Swiper container unique class/id to avoid conflicts
-    const swiperContainer = document.createElement('div');
-    swiperContainer.className = 'swiper';
-    swiperContainer.id = 'swiper-' + index;
+        bag.images.forEach(src => {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            const img = document.createElement('img');
+            img.src = src;
+            slide.appendChild(img);
+            swiperWrapper.appendChild(slide);
+        });
 
-    // Swiper wrapper
-    const swiperWrapper = document.createElement('div');
-    swiperWrapper.className = 'swiper-wrapper';
+        swiperContainer.appendChild(swiperWrapper);
 
-    bag.images.forEach(src => {
-      const slide = document.createElement('div');
-      slide.className = 'swiper-slide';
+        const btnPrev = document.createElement('div');
+        btnPrev.className = 'swiper-button-prev';
+        swiperContainer.appendChild(btnPrev);
 
-      const img = document.createElement('img');
-      img.src = src;
-      slide.appendChild(img);
+        const btnNext = document.createElement('div');
+        btnNext.className = 'swiper-button-next';
+        swiperContainer.appendChild(btnNext);
 
-      swiperWrapper.appendChild(slide);
+        bagDiv.appendChild(swiperContainer);
+
+        // Like button
+        const controls = document.createElement('div');
+        controls.className = 'controls';
+        const likeBtn = document.createElement('button');
+        likeBtn.className = 'like-btn';
+        likeBtn.innerHTML = '🤍';
+        likeBtn.onclick = () => toggleLike(bag.id, likeBtn);
+        controls.appendChild(likeBtn);
+        bagDiv.appendChild(controls);
+
+        container.appendChild(bagDiv);
+
+        new Swiper('#' + swiperContainer.id, {
+            loop: true,
+            navigation: {
+                nextEl: '#' + swiperContainer.id + ' .swiper-button-next',
+                prevEl: '#' + swiperContainer.id + ' .swiper-button-prev',
+            }
+        });
     });
-
-    swiperContainer.appendChild(swiperWrapper);
-
-    // Navigation buttons
-    const btnPrev = document.createElement('div');
-    btnPrev.className = 'swiper-button-prev';
-    swiperContainer.appendChild(btnPrev);
-
-    const btnNext = document.createElement('div');
-    btnNext.className = 'swiper-button-next';
-    swiperContainer.appendChild(btnNext);
-
-    // Pagination
-    const pagination = document.createElement('div');
-    pagination.className = 'swiper-pagination';
-    swiperContainer.appendChild(pagination);
-
-    bagDiv.appendChild(swiperContainer);
-
-    // Controls (like button + count)
-    const controls = document.createElement('div');
-    controls.className = 'controls';
-
-    const likeBtn = document.createElement('button');
-    likeBtn.className = 'like-btn' + (alreadyLiked ? ' liked' : '');
-    likeBtn.innerHTML = alreadyLiked ? '❤️' : '🤍';
-
-
-    const likesCountEl = document.createElement('span');
-   likeBtn.onclick = () => likeBag(bag.id, likeBtn, likesCountEl);
-   controls.appendChild(likeBtn);
-    
-
-    bagDiv.appendChild(controls);
-
-    container.appendChild(bagDiv);
-
-    // Initialize swiper for this bag
-    new Swiper('#' + swiperContainer.id, {
-      loop: true,
-      navigation: {
-        nextEl: '#' + swiperContainer.id + ' .swiper-button-next',
-        prevEl: '#' + swiperContainer.id + ' .swiper-button-prev',
-      },
-      pagination: {
-        el: '#' + swiperContainer.id + ' .swiper-pagination',
-        clickable: true,
-      },
-    });
-  });
-}
-async function likeBag(bagID, btnEl, ) {
-  const likedKey = 'liked_' + bagID;
-
-  if (localStorage.getItem(likedKey)) {
-    // Unlike action
-    btnEl.classList.remove('liked');
-    btnEl.innerHTML = '🤍';
-    localStorage.removeItem(likedKey);
-
-    try {
-      await fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bagID: bagID, action: 'unlike' })
-      });
-    } catch (err) {
-      console.error('Error posting unlike:', err);
-    }
-  } else {
-    // Like action
-    btnEl.classList.add('liked');
-    btnEl.innerHTML = '❤️';
-    localStorage.setItem(likedKey, '1');
-
-    try {
-      await fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bagID: bagID, action: 'like' })
-      });
-    } catch (err) {
-      console.error('Error posting like:', err);
-    }
-  }
 }
 
+// ==================== LIKE TOGGLE ====================
+function toggleLike(bagID, btnEl) {
+    if (likesData[bagID] === 1) {
+        likesData[bagID] = 0;
+        btnEl.classList.remove('liked');
+        btnEl.innerHTML = '🤍';
+    } else {
+        likesData[bagID] = 1;
+        btnEl.classList.add('liked');
+        btnEl.innerHTML = '❤️';
+    }
+}
 
-
-(async () => {
-  const likesMap = await fetchInitialLikes();
-  renderBags(likesMap);
-})();
-</script>
-
+// ==================== SURVEY SUBMIT ====================
+document.getElementById("survey-submit-btn").addEventListener("click", function () {
+    // Gather survey answers
   
-  <script>
-document.getElementById("survey-submit-btn").addEventListener("click", function() {
-    // Here you can also run your form submission logic if needed
+   // const surveyAnswers = {};
+  //  document.querySelectorAll('.survey-questions input[type="radio"]:checked')
+      //  .forEach(input => {
+     //       surveyAnswers[input.name] = input.value;
+    //    });
+//const cityInput = document.querySelector('input[name="city"]');
+ //   if (cityInput) surveyAnswers.city = cityInput.value.trim();
 
-    // Change text
-    this.textContent = "Submit";
-    // Disable button
-    this.disabled = true;
-    // Save state in localStorage so it remembers next time
-    localStorage.setItem("surveySubmitted", "true");
+    // Merge likes and survey answers
+    const payload = { ...likesData};
+
+    // POST to Google Apps Script
+    fetch(scriptURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        this.textContent = "Submitted";
+        this.disabled = true;
+        localStorage.setItem("surveySubmitted", "true");
+        alert("Thank you! Your responses have been recorded.");
+    })
+    .catch(err => {
+        console.error("Error submitting data:", err);
+        alert("Submission failed, please try again.");
+    });
 });
 
-// On page load, check if already submitted
-window.addEventListener("load", function() {
+// ==================== INITIAL LOAD ====================
+window.addEventListener("load", function () {
     if (localStorage.getItem("surveySubmitted") === "true") {
         let btn = document.getElementById("survey-submit-btn");
         btn.textContent = "Submitted";
         btn.disabled = true;
     }
+    renderBags();
 });
-    
 </script>
-
-  <script>
-  const hearts = document.querySelectorAll('.heart');
-  const likesData = { b00: 0, b01: 0, b02: 0, b03: 0, b04: 0 };
-
-  // Toggle heart color and set like/unlike
-  hearts.forEach(heart => {
-    heart.addEventListener('click', () => {
-      const bagId = heart.parentElement.getAttribute('data-bagid');
-      heart.classList.toggle('liked');
-      likesData[bagId] = heart.classList.contains('liked') ? 1 : 0;
-    });
-  });
-
-  // Submit data to Google Sheet
-  document.getElementById('submitBtn').addEventListener('click', () => {
-    fetch("https://script.google.com/macros/s/AKfycbxxGy0nsqE5E7Kg3UfRSdcAWYnFrzhM8iAUU2QrgAtAtIyVtdOJPTVz_-1dqMXXsuJd/exec", {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(likesData)
-    })
-    .then(() => {
-      alert("Your responses have been submitted. Thank you!");
-    })
-    .catch(err => {
-      console.error("Error submitting data:", err);
-    });
-  });
-</script>
-
-
 </body>
 </html>
