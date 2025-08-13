@@ -342,12 +342,19 @@ document.getElementById("survey-submit-btn").addEventListener("click", function 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     })
-    .then(() => {
-        this.textContent = "Submitted";
-        this.disabled = true;
-        localStorage.setItem("surveySubmitted", "true");
-        alert("Thank you! Your responses have been recorded.");
-    })
+    .then(response => {
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json(); // parse JSON returned by Apps Script
+})
+.then(data => {
+    console.log("Submission success:", data);
+    this.textContent = "Submitted";
+    this.disabled = true;
+    localStorage.setItem("surveySubmitted", "true");
+    alert("Thank you! Your responses have been recorded.");
+})
     .catch(err => {
         console.error("Error submitting data:", err);
         alert("Submission failed, please try again.");
