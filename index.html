@@ -4,92 +4,48 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta charset="utf-8">
 <title>Bag Preference Survey</title>
-
-<!-- External CSS file (optional if you want to move CSS out) -->
-
-
 <!-- Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
 <style>
-/* ================= GLOBAL PAGE STYLES ================= */
+/* === GLOBAL STYLES === */
 body, html {
     margin: 0;
     padding: 0;
     font-family: "Times New Roman", sans-serif;
     background-color: #fff2e6;
 }
+.header-section { padding: 20px 20px 40px 20px; text-align: center; }
+.header-section h1 { margin: 0; }
+.header-section p { font-size: 14px; color: #333; margin-top: 8px; }
 
-/* ================= HEADER SECTION ================= */
-.header-section {
-    padding: 20px 20px 40px 20px;
-    text-align: center;
-}
-.header-section h1 {
-    margin: 0;
-}
-.header-section p {
-    font-size: 14px;
-    color: #333;
-    margin-top: 8px;
-}
-
-/* ================= BAG DISPLAY STYLES ================= */
+/* === BAG DISPLAY === */
 .bag-container { 
-    background: white; 
-    border-radius: 10px; 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
-    margin-bottom: 16px; 
-    overflow: hidden; 
-    max-width: 520px; 
-    margin-left: auto; 
-    margin-right: auto; 
-    padding: 10px; 
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 16px;
+    overflow: hidden;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
 }
-h3 {
-    margin-bottom: 8px;
-}
+h3 { margin-bottom: 8px; }
 .swiper { width: 100%; height: 300px; }
-.swiper-slide img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
-}
-.controls { 
-    display: flex; 
-    align-items: center; 
-    padding-top: 10px; 
-}
-.like-btn { 
-    font-size: 20px; 
-    border: none; 
-    background: transparent; 
-    cursor: pointer; 
-}
-.like-btn.liked { 
-    color: #ff4d6d; 
-    font-weight: bold; 
-}
-
-/* Swiper nav buttons styling */
-.swiper-button-next,
-.swiper-button-prev {
+.swiper-slide img { width: 100%; height: 100%; object-fit: contain; }
+.controls { display: flex; align-items: center; padding-top: 10px; }
+.like-btn { font-size: 20px; border: none; background: transparent; cursor: pointer; }
+.like-btn.liked { color: #ff4d6d; font-weight: bold; }
+.swiper-button-next, .swiper-button-prev {
     background-color: rgba(160, 160, 160, 0.8);
     color: white;
-    width: 25px;
-    height: 25px;
+    width: 25px; height: 25px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
 }
-.swiper-button-next::after,
-.swiper-button-prev::after {
-    font-size: 10px;
-    font-weight: bold;
-}
+.swiper-button-next::after, .swiper-button-prev::after { font-size: 10px; font-weight: bold; }
 
-/* ================= SURVEY FORM STYLES ================= */
+/* === SURVEY FORM === */
 .survey-questions {
     background: white;
     border-radius: 10px;
@@ -119,15 +75,11 @@ h3 {
     border-radius: 6px;
     cursor: pointer;
 }
-.survey-option:hover {
-    background-color: #f0f0f0;
-}
+.survey-option:hover { background-color: #f0f0f0; }
 .survey-option input[type="radio"] {
     margin-right: 12px;
     accent-color: #ff4d6d;
 }
-
-/* Submit button */
 .survey-submit-btn {
     background-color: #87CEFA;
     color: black;
@@ -138,28 +90,26 @@ h3 {
     font-weight: bold;
     cursor: pointer;
     width: 100%;
+    margin-top: 10px;
 }
-.survey-submit-btn:hover {
-    background-color: #6CB4EE;
-}
+.survey-submit-btn:hover { background-color: #6CB4EE; }
 </style>
 </head>
 <body>
 
-<!-- ================== PAGE HEADER ================== -->
+<!-- HEADER -->
 <div class="header-section">
     <h1>Bag Preference Survey</h1>
     <p>Please like the images of the bags you would consider buying, then answer the questions below.</p>
 </div>
 
-<!-- ================== BAG DISPLAY WILL RENDER HERE ================== -->
+<!-- BAG DISPLAY -->
 <div id="bags"></div>
 
-<!-- ================== SURVEY QUESTIONS ================== -->
+<!-- SURVEY QUESTIONS -->
 <div class="survey-questions">
-
     <div class="survey-question">
-        <div class="survey-question-title">1. How often do you buy new bags?</div>
+        <div>1. How often do you buy new bags?</div>
         <div class="survey-options">
             <label class="survey-option"><input type="radio" name="frequency" value="weekly"> Weekly</label>
             <label class="survey-option"><input type="radio" name="frequency" value="monthly"> Monthly</label>
@@ -167,9 +117,8 @@ h3 {
             <label class="survey-option"><input type="radio" name="frequency" value="rarely"> Rarely</label>
         </div>
     </div>
-
     <div class="survey-question">
-        <div class="survey-question-title">2. What's most important when choosing a bag?</div>
+        <div>2. What's most important when choosing a bag?</div>
         <div class="survey-options">
             <label class="survey-option"><input type="radio" name="priority" value="price"> Price</label>
             <label class="survey-option"><input type="radio" name="priority" value="design"> Design</label>
@@ -177,9 +126,8 @@ h3 {
             <label class="survey-option"><input type="radio" name="priority" value="durability"> Durability</label>
         </div>
     </div>
-
     <div class="survey-question">
-        <div class="survey-question-title">3. Price range you'd spend on a bag?</div>
+        <div>3. Price range you'd spend on a bag?</div>
         <div class="survey-options">
             <label class="survey-option"><input type="radio" name="price" value="under-1000"> Under ₹1,000</label>
             <label class="survey-option"><input type="radio" name="price" value="1000-2500"> ₹1,000 – ₹2,500</label>
@@ -188,9 +136,8 @@ h3 {
             <label class="survey-option"><input type="radio" name="price" value="above-10000"> Above ₹10,000</label>
         </div>
     </div>
-
     <div class="survey-question">
-        <div class="survey-question-title">4. Below what price would you doubt the quality?</div>
+        <div>4. Below what price would you doubt the quality?</div>
         <div class="survey-options">
             <label class="survey-option"><input type="radio" name="low_price_doubt" value="500"> ₹500</label>
             <label class="survey-option"><input type="radio" name="low_price_doubt" value="750"> ₹750</label>
@@ -198,9 +145,8 @@ h3 {
             <label class="survey-option"><input type="radio" name="low_price_doubt" value="1250"> ₹1,250</label>
         </div>
     </div>
-
     <div class="survey-question">
-        <div class="survey-question-title">5. Above what price is it too expensive?</div>
+        <div>5. Above what price is it too expensive?</div>
         <div class="survey-options">
             <label class="survey-option"><input type="radio" name="high_price_expensive" value="2000"> ₹2,000</label>
             <label class="survey-option"><input type="radio" name="high_price_expensive" value="2500"> ₹2,500</label>
@@ -208,9 +154,8 @@ h3 {
             <label class="survey-option"><input type="radio" name="high_price_expensive" value="3500"> ₹3,500</label>
         </div>
     </div>
-
     <div class="survey-question">
-        <div class="survey-question-title">6. What is your age group?</div>
+        <div>6. What is your age group?</div>
         <div class="survey-options">
             <label class="survey-option"><input type="radio" name="age" value="18-21"> 18–21 years</label>
             <label class="survey-option"><input type="radio" name="age" value="22-25"> 22–25 years</label>
@@ -218,21 +163,34 @@ h3 {
             <label class="survey-option"><input type="radio" name="age" value="30-33"> 30–33 years</label>
         </div>
     </div>
-
     <div class="survey-question">
-        <div class="survey-question-title">7. What city do you live in?</div>
+        <div>7. What city do you live in?</div>
         <input type="text" name="city" placeholder="Enter your city" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
     </div>
-
     <button type="button" id="survey-submit-btn" class="survey-submit-btn">Submit</button>
 </div>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-<script>
-// ==================== CONFIG ====================
-const scriptURL = "https://script.google.com/macros/s/AKfycbwnPI_YuEAPc20l-riJZXtjOjHrzBb8zxHSJVCiOC2ID6gbg4pAilP0ksvrlW1JB7RI/exec"; // <-- Replace with your actual Apps Script Web App URL
+<!-- Firebase + App Logic -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore, doc, updateDoc, increment, setDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyC3qRsJZMWW4pl8K2_VcpqMC1ImEtxAfhg",
+    authDomain: "baglikesproject.firebaseapp.com",
+    projectId: "baglikesproject",
+    storageBucket: "baglikesproject.firebasestorage.app",
+    messagingSenderId: "253305987836",
+    appId: "1:253305987836:web:7dff95c1cd41165f48ed79"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Bag data & like state
 const bagsData = [
     { id: "b00", images: ["images/b00.jpg", "images/b00_1.jpg", "images/b00_2.jpg"] },
     { id: "b01", images: ["images/b01.jpg", "images/b01_1.jpg", "images/b01_2.jpg"] },
@@ -240,129 +198,90 @@ const bagsData = [
     { id: "b03", images: ["images/b03.jpg"] },
     { id: "b04", images: ["images/b04.jpg"] }
 ];
-// Keep track of likes before submission
 const likesData = { b00: 0, b01: 0, b02: 0, b03: 0, b04: 0 };
 
-// ==================== RENDER BAGS ====================
 function renderBags() {
     const container = document.getElementById('bags');
     container.innerHTML = '';
-
     bagsData.forEach((bag, index) => {
         const bagDiv = document.createElement('div');
         bagDiv.className = 'bag-container';
-
-        // Title
-        const title = document.createElement('h3');
-        title.innerText = `Bag ID: ${bag.id}`;
-        bagDiv.appendChild(title);
-
-        // Swiper container
-        const swiperContainer = document.createElement('div');
-        swiperContainer.className = 'swiper';
-        swiperContainer.id = 'swiper-' + index;
-
-        const swiperWrapper = document.createElement('div');
-        swiperWrapper.className = 'swiper-wrapper';
-
-        bag.images.forEach(src => {
-            const slide = document.createElement('div');
-            slide.className = 'swiper-slide';
-            const img = document.createElement('img');
-            img.src = src;
-            slide.appendChild(img);
-            swiperWrapper.appendChild(slide);
-        });
-
-        swiperContainer.appendChild(swiperWrapper);
-
-        const btnPrev = document.createElement('div');
-        btnPrev.className = 'swiper-button-prev';
-        swiperContainer.appendChild(btnPrev);
-
-        const btnNext = document.createElement('div');
-        btnNext.className = 'swiper-button-next';
-        swiperContainer.appendChild(btnNext);
-
-        bagDiv.appendChild(swiperContainer);
-
-        // Like button
-        const controls = document.createElement('div');
-        controls.className = 'controls';
-        const likeBtn = document.createElement('button');
-        likeBtn.className = 'like-btn';
-        likeBtn.innerHTML = '🤍';
-        likeBtn.onclick = () => toggleLike(bag.id, likeBtn);
-        controls.appendChild(likeBtn);
-        bagDiv.appendChild(controls);
-
+        bagDiv.innerHTML = `
+            <h3>Bag ID: ${bag.id}</h3>
+            <div class="swiper" id="swiper-${index}">
+                <div class="swiper-wrapper">
+                    ${bag.images.map(src => `<div class="swiper-slide"><img src="${src}"></div>`).join("")}
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <div class="controls">
+                <button class="like-btn" data-id="${bag.id}">🤍</button>
+            </div>
+        `;
         container.appendChild(bagDiv);
 
-        new Swiper('#' + swiperContainer.id, {
+        new Swiper(`#swiper-${index}`, {
             loop: true,
             navigation: {
-                nextEl: '#' + swiperContainer.id + ' .swiper-button-next',
-                prevEl: '#' + swiperContainer.id + ' .swiper-button-prev',
+                nextEl: `#swiper-${index} .swiper-button-next`,
+                prevEl: `#swiper-${index} .swiper-button-prev`,
             }
         });
     });
+
+    document.querySelectorAll(".like-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-id");
+            likesData[id] = likesData[id] === 1 ? 0 : 1;
+            btn.classList.toggle('liked');
+            btn.innerHTML = likesData[id] ? '❤️' : '🤍';
+        });
+    });
 }
 
-// ==================== LIKE TOGGLE ====================
-function toggleLike(bagID, btnEl) {
-    if (likesData[bagID] === 1) {
-        likesData[bagID] = 0;
-        btnEl.classList.remove('liked');
-        btnEl.innerHTML = '🤍';
-    } else {
-        likesData[bagID] = 1;
-        btnEl.classList.add('liked');
-        btnEl.innerHTML = '❤️';
+async function incrementLikeInFirestore(bagId) {
+    const bagRef = doc(db, "bag_likes", bagId);
+    try {
+        await updateDoc(bagRef, { like_count: increment(1) });
+    } catch (error) {
+        if (error.code === 'not-found' || error.message.includes('NOT_FOUND')) {
+            await setDoc(bagRef, { like_count: 1 });
+        }
     }
 }
 
-// ==================== SURVEY SUBMIT ====================
-document.getElementById("survey-submit-btn").addEventListener("click", function () {
+document.getElementById("survey-submit-btn").addEventListener("click", async () => {
+    // Increment likes
+    for (let bagId in likesData) {
+        if (likesData[bagId] === 1) {
+            await incrementLikeInFirestore(bagId);
+        }
+    }
+
     // Gather survey answers
-  
-   // const surveyAnswers = {};
-  //  document.querySelectorAll('.survey-questions input[type="radio"]:checked')
-      //  .forEach(input => {
-     //       surveyAnswers[input.name] = input.value;
-    //    });
-//const cityInput = document.querySelector('input[name="city"]');
- //   if (cityInput) surveyAnswers.city = cityInput.value.trim();
+    const surveyAnswers = {};
+    document.querySelectorAll('.survey-questions input[type="radio"]:checked').forEach(input => {
+        surveyAnswers[input.name] = input.value;
+    });
+    const cityInput = document.querySelector('input[name="city"]');
+    if (cityInput) surveyAnswers.city = cityInput.value.trim();
 
-    // Merge likes and survey answers
-    const payload = { ...likesData};
+    // Save survey answers to Firestore
+    await addDoc(collection(db, "survey_responses"), {
+        ...surveyAnswers,
+        timestamp: serverTimestamp()
+    });
 
-    // POST to Google Apps Script
-    fetch(scriptURL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    })
-    .then(response => {
-    if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json(); // parse JSON returned by Apps Script
-})
-.then(data => {
-    console.log("Submission success:", data);
-    this.textContent = "Submitted";
-    this.disabled = true;
+    // Disable submit & notify
+    const btn = document.getElementById("survey-submit-btn");
+    btn.textContent = "Submitted";
+    btn.disabled = true;
     localStorage.setItem("surveySubmitted", "true");
     alert("Thank you! Your responses have been recorded.");
-})
-    .catch(err => {
-        console.error("Error submitting data:", err);
-        alert("Submission failed, please try again.");
-    });
 });
 
-// ==================== INITIAL LOAD ====================
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
     if (localStorage.getItem("surveySubmitted") === "true") {
         let btn = document.getElementById("survey-submit-btn");
         btn.textContent = "Submitted";
@@ -371,5 +290,6 @@ window.addEventListener("load", function () {
     renderBags();
 });
 </script>
+
 </body>
 </html>
